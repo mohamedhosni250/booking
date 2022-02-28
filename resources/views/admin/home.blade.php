@@ -1,7 +1,6 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
     <div>
         <h2>@lang('site.home')</h2>
     </div>
@@ -14,7 +13,7 @@
 
         <div class="col-md-12">
 
-            {{--top statistics--}}
+            {{-- top statistics --}}
             <div class="row" id="top-statistics">
 
                 <div class="col-md-4">
@@ -64,7 +63,8 @@
                         <div class="card-body">
 
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="mb-0"><span class="fa fa-address-book-o"></span> @lang('actors.actors')</p>
+                                <p class="mb-0"><span class="fa fa-address-book-o"></span> @lang('actors.actors')
+                                </p>
                                 <a href="{{ route('admin.actors.index') }}">@lang('site.show_all')</a>
                             </div>
 
@@ -79,7 +79,7 @@
 
             </div><!-- end of row -->
 
-            {{--movies chart--}}
+            {{-- movies chart --}}
             <div class="row my-3">
 
                 <div class="col-md-12">
@@ -92,10 +92,9 @@
                                 <h4>@lang('movies.movies_chart')</h4>
 
                                 <select id="movies-chart-year" style="width: 100px;">
-                                    @for ($i = 5; $i >=0 ; $i--)
+                                    @for ($i = 5; $i >= 0; $i--)
                                         <option value="{{ now()->subYears($i)->year }}"
-                                                {{ now()->subYears($i)->year == now()->year ? 'selected' : '' }}
-                                        >
+                                            {{ now()->subYears($i)->year == now()->year ? 'selected' : '' }}>
                                             {{ now()->subYears($i)->year }}
                                         </option>
                                     @endfor
@@ -123,7 +122,8 @@
 
                             <div class="d-flex my-2">
                                 <h4 class="mb-0">@lang('movies.top') @lang('movies.popular')</h4>
-                                <a href="{{ route('admin.movies.index') }}" class="mx-2 mt-1">@lang('site.show_all')</a>
+                                <a href="{{ route('admin.movies.index') }}"
+                                    class="mx-2 mt-1">@lang('site.show_all')</a>
                             </div>
 
                             <table class="table">
@@ -138,8 +138,11 @@
                                 @foreach ($popularMovies as $index => $movie)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td><a href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a></td>
-                                        <td><i class="fa fa-star text-warning"></i> <span class="mx-2">{{ $movie->vote }}</span></td>
+                                        <td><a
+                                                href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a>
+                                        </td>
+                                        <td><i class="fa fa-star text-warning"></i> <span
+                                                class="mx-2">{{ $movie->vote }}</span></td>
                                         <td>{{ $movie->vote_count }}</td>
                                         <td>{{ $movie->release_date }}</td>
                                     </tr>
@@ -148,7 +151,8 @@
 
                             <div class="d-flex my-2">
                                 <h4 class="mb-0">@lang('movies.top') @lang('movies.now_playing')</h4>
-                                <a href="{{ route('admin.movies.index', ['type' => 'now_playing']) }}" class="mx-2 mt-1">@lang('site.show_all')</a>
+                                <a href="{{ route('admin.movies.index', ['type' => 'now_playing']) }}"
+                                    class="mx-2 mt-1">@lang('site.show_all')</a>
                             </div>
 
                             <table class="table">
@@ -163,8 +167,11 @@
                                 @foreach ($nowPlayingMovies as $index => $movie)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td><a href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a></td>
-                                        <td><i class="fa fa-star text-warning"></i> <span class="mx-2">{{ $movie->vote }}</span></td>
+                                        <td><a
+                                                href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a>
+                                        </td>
+                                        <td><i class="fa fa-star text-warning"></i> <span
+                                                class="mx-2">{{ $movie->vote }}</span></td>
                                         <td>{{ $movie->vote_count }}</td>
                                         <td>{{ $movie->release_date }}</td>
                                     </tr>
@@ -175,7 +182,8 @@
 
                             <div class="d-flex my-2">
                                 <h4 class="mb-0">@lang('movies.top') @lang('movies.upcoming')</h4>
-                                <a href="{{ route('admin.movies.index', ['type' => 'upcoming']) }}" class="mx-2 mt-1">@lang('site.show_all')</a>
+                                <a href="{{ route('admin.movies.index', ['type' => 'upcoming']) }}"
+                                    class="mx-2 mt-1">@lang('site.show_all')</a>
                             </div>
 
                             <table class="table">
@@ -190,8 +198,11 @@
                                 @foreach ($upcomingMovies as $index => $movie)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td><a href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a></td>
-                                        <td><i class="fa fa-star text-warning"></i> <span class="mx-2">{{ $movie->vote }}</span></td>
+                                        <td><a
+                                                href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a>
+                                        </td>
+                                        <td><i class="fa fa-star text-warning"></i> <span
+                                                class="mx-2">{{ $movie->vote }}</span></td>
                                         <td>{{ $movie->vote_count }}</td>
                                         <td>{{ $movie->release_date }}</td>
                                     </tr>
@@ -213,29 +224,28 @@
 @endsection
 
 @push('scripts')
-
     <script>
-        $(function () {
+        $(function() {
 
             topStatistics();
 
             moviesChart("{{ now()->year }}");
 
-            $('#movies-chart-year').on('change', function () {
+            $('#movies-chart-year').on('change', function() {
 
                 let year = $(this).find(':selected').val();
 
                 moviesChart(year);
 
-            });//end of on change
+            }); //end of on change
 
-        });//end of document ready
+        }); //end of document ready
 
         function topStatistics() {
             $.ajax({
                 url: "{{ route('admin.home.top_statistics') }}",
                 cache: false,
-                success: function (data) {
+                success: function(data) {
 
                     $('#top-statistics .loader-sm').hide();
 
@@ -245,7 +255,7 @@
 
                 },
 
-            });//end of ajax call
+            }); //end of ajax call
         }
 
         function moviesChart(year) {
@@ -264,13 +274,13 @@
                     'year': year,
                 },
                 cache: false,
-                success: function (html) {
+                success: function(html) {
 
                     $('#movies-chart-wrapper').empty().append(html);
 
                 },
 
-            });//end of ajax call
+            }); //end of ajax call
 
         }
     </script>

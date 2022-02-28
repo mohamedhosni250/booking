@@ -9,15 +9,15 @@ class Genre extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['title'];
 
     //attr
     //scope
 
     //rel
-    public function movies()
+    public function tours()
     {
-        return $this->belongsToMany(Movie::class, 'movie_genre');
+        return $this->hasMany(Tour::class);
     } // end of movies
 
     //fun

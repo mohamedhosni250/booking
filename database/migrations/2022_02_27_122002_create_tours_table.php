@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGenresTable extends Migration
+class CreateToursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,16 @@ class CreateGenresTable extends Migration
      */
     public function up()
     {
-        Schema::create('genres', function (Blueprint $table) {
+        Schema::create('tours', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('genre_id')->nullable()->constrained();
             $table->string('title');
+            $table->text('image')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('adult_price')->nullable();
+            $table->integer('child_price')->nullable();
+
+
             $table->timestamps();
         });
     }
@@ -27,6 +34,6 @@ class CreateGenresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('tours');
     }
 }

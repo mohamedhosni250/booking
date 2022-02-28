@@ -2,12 +2,12 @@
 
 @section('content')
     <div>
-        <h2>@lang('genres.genres')</h2>
+        <h2>@lang('orders.orders')</h2>
     </div>
 
     <ul class="breadcrumb mt-2">
         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('genres.genres')</li>
+        <li class="breadcrumb-item">@lang('orders.orders')</li>
     </ul>
 
     <div class="row">
@@ -20,12 +20,12 @@
 
                     <div class="col-md-12">
                         @if (auth()->user()->hasPermission('read_users'))
-                            <a href="{{ route('admin.genres.create') }}" class="btn btn-primary"><i
+                            <a href="{{ route('admin.tours.create') }}" class="btn btn-primary"><i
                                     class="fa fa-plus"></i> @lang('site.create')</a>
                         @endif
 
-                        @if (auth()->user()->hasPermission('delete_genres'))
-                            <form method="post" action="{{ route('admin.genres.bulk_delete') }}"
+                        @if (auth()->user()->hasPermission('delete_tours'))
+                            <form method="post" action="{{ route('admin.tours.bulk_delete') }}"
                                 style="display: inline-block;">
                                 @csrf
                                 @method('delete')
@@ -56,7 +56,7 @@
 
                         <div class="table-responsive">
 
-                            <table class="table datatable" id="genres-table" style="width: 100%;">
+                            <table class="table datatable" id="orders-table" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>
@@ -67,11 +67,17 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>@lang('genres.name')</th>
-                                        <th>@lang('genres.tours_count')</th>
+                                        <th>@lang('orders.bookingid')</th>
+                                        <th>@lang('orders.name')</th>
+                                        <th>@lang('orders.email')</th>
+                                        <th>@lang('orders.number')</th>
+                                        <th>@lang('orders.tour')</th>
+                                        <th>@lang('orders.total')</th>
+
 
                                         <th>@lang('site.created_at')</th>
                                         <th>@lang('site.action')</th>
+
                                     </tr>
                                 </thead>
                             </table>
@@ -89,9 +95,10 @@
     </div><!-- end of row -->
 @endsection
 
+
 @push('scripts')
     <script>
-        let genresTable = $('#genres-table').DataTable({
+        let toursTable = $('#orders-table').DataTable({
             dom: "tiplr",
             serverSide: true,
             processing: true,
@@ -99,7 +106,7 @@
                 "url": "{{ asset('admin_assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('admin.genres.data') }}',
+                url: '{{ route('admin.orders.data') }}',
             },
             columns: [{
                     data: 'record_select',
@@ -109,14 +116,33 @@
                     width: '1%'
                 },
                 {
-                    data: 'title',
-                    name: 'title'
+                    data: 'booking_id',
+                    name: 'booking_id'
                 },
                 {
-                    data: 'tours_count',
-                    name: 'tours_count',
-                    searchable: false
+                    data: 'name',
+                    name: 'name'
                 },
+
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'mobile_number',
+                    name: 'mobile_number'
+                },
+                {
+                    data: 'tour_name',
+                    name: 'tour_name'
+                },
+                {
+                    data: 'total',
+                    name: 'total'
+                },
+
+
+
 
                 {
                     data: 'created_at',
@@ -132,7 +158,7 @@
                 },
             ],
             order: [
-                [4, 'desc']
+                [1, 'desc']
             ],
             drawCallback: function(settings) {
                 $('.record__select').prop('checked', false);
@@ -143,7 +169,7 @@
         });
 
         $('#data-table-search').keyup(function() {
-            genresTable.search(this.value).draw();
+            toursTable.search(this.value).draw();
         })
     </script>
 @endpush

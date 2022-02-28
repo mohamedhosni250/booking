@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Actor;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Tour;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -28,13 +29,12 @@ class HomeController extends Controller
             ->get();
 
         return view('admin.home', compact('popularMovies', 'upcomingMovies', 'nowPlayingMovies'));
-
-    }// end of index
+    } // end of index
 
     public function topStatistics()
     {
         $genresCount = number_format(Genre::count(), 1);
-        $moviesCount = number_format(Movie::count(), 1);
+        $moviesCount = number_format(Tour::count(), 1);
         $actorsCount = number_format(Actor::count(), 1);
 
         return response()->json([
@@ -42,8 +42,7 @@ class HomeController extends Controller
             'movies_count' => $moviesCount,
             'actors_count' => $actorsCount,
         ]);
-
-    }// end of topStatistics
+    } // end of topStatistics
 
     public function moviesChart()
     {
@@ -58,7 +57,6 @@ class HomeController extends Controller
             ->get();
 
         return view('admin._movies_chart', compact('movies'));
-
-    }// end of moviesChart
+    } // end of moviesChart
 
 }//end of controller

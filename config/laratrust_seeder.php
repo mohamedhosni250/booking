@@ -20,6 +20,7 @@ return [
             'movies' => 'c,r,u,d',
             'actors' => 'c,r,u,d',
             'settings' => 'c,r,u,d',
+            'tours'  => 'c,r,u,d',
         ],
         'admin' => [],
         'user' => [],

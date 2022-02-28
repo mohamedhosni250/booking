@@ -2,12 +2,12 @@
 
 @section('content')
     <div>
-        <h2>@lang('genres.genres')</h2>
+        <h2>@lang('tours.tours')</h2>
     </div>
 
     <ul class="breadcrumb mt-2">
         <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('genres.genres')</li>
+        <li class="breadcrumb-item">@lang('tours.tours')</li>
     </ul>
 
     <div class="row">
@@ -20,12 +20,12 @@
 
                     <div class="col-md-12">
                         @if (auth()->user()->hasPermission('read_users'))
-                            <a href="{{ route('admin.genres.create') }}" class="btn btn-primary"><i
+                            <a href="{{ route('admin.tours.create') }}" class="btn btn-primary"><i
                                     class="fa fa-plus"></i> @lang('site.create')</a>
                         @endif
 
-                        @if (auth()->user()->hasPermission('delete_genres'))
-                            <form method="post" action="{{ route('admin.genres.bulk_delete') }}"
+                        @if (auth()->user()->hasPermission('delete_tours'))
+                            <form method="post" action="{{ route('admin.tours.bulk_delete') }}"
                                 style="display: inline-block;">
                                 @csrf
                                 @method('delete')
@@ -56,7 +56,7 @@
 
                         <div class="table-responsive">
 
-                            <table class="table datatable" id="genres-table" style="width: 100%;">
+                            <table class="table datatable" id="tours-table" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>
@@ -67,11 +67,13 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th>@lang('genres.name')</th>
-                                        <th>@lang('genres.tours_count')</th>
-
+                                        <th>@lang('tours.title')</th>
+                                        <th>@lang('tours.genre')</th>
+                                        <th>@lang('tours.adult_price')</th>
+                                        <th>@lang('tours.child_price')</th>
                                         <th>@lang('site.created_at')</th>
                                         <th>@lang('site.action')</th>
+
                                     </tr>
                                 </thead>
                             </table>
@@ -91,7 +93,7 @@
 
 @push('scripts')
     <script>
-        let genresTable = $('#genres-table').DataTable({
+        let toursTable = $('#tours-table').DataTable({
             dom: "tiplr",
             serverSide: true,
             processing: true,
@@ -99,7 +101,7 @@
                 "url": "{{ asset('admin_assets/datatable-lang/' . app()->getLocale() . '.json') }}"
             },
             ajax: {
-                url: '{{ route('admin.genres.data') }}',
+                url: '{{ route('admin.tours.data') }}',
             },
             columns: [{
                     data: 'record_select',
@@ -113,11 +115,25 @@
                     name: 'title'
                 },
                 {
-                    data: 'tours_count',
-                    name: 'tours_count',
-                    searchable: false
+                    data: 'genre',
+                    name: 'genre'
                 },
 
+
+                {
+                    data: 'child_price',
+                    name: 'Child Price',
+                    searchable: true,
+                    sortable: true
+
+                },
+
+
+                {
+                    data: 'adult_price',
+                    name: 'adult_price',
+
+                },
                 {
                     data: 'created_at',
                     name: 'created_at',
@@ -132,7 +148,7 @@
                 },
             ],
             order: [
-                [4, 'desc']
+                [1, 'desc']
             ],
             drawCallback: function(settings) {
                 $('.record__select').prop('checked', false);
@@ -143,7 +159,7 @@
         });
 
         $('#data-table-search').keyup(function() {
-            genresTable.search(this.value).draw();
+            toursTable.search(this.value).draw();
         })
     </script>
 @endpush

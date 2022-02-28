@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::middleware([
     // 'localeSessionRedirect',
     // 'localizationRedirect',
@@ -30,6 +32,16 @@ Route::middleware([
             Route::get('/users/data', 'UserController@data')->name('users.data');
             Route::delete('/users/bulk_delete', 'UserController@bulkDelete')->name('users.bulk_delete');
             Route::resource('users', 'UserController');
+
+            //Tour routes
+            Route::get('/tours/data', 'TourController@data')->name('tours.data');
+            Route::delete('/tours/bulk_delete', 'TourController@bulkDelete')->name('tours.bulk_delete');
+            Route::resource('tours', 'TourController');
+
+            //Order routes
+            Route::get('/orders/data', 'OrderController@data')->name('orders.data');
+            Route::delete('/orders/bulk_delete', 'OrderController@bulkDelete')->name('orders.bulk_delete');
+            Route::resource('orders', 'OrderController');
 
             //genre routes
             Route::get('/genres/data', 'GenreController@data')->name('genres.data');

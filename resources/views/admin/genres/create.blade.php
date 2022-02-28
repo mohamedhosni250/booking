@@ -26,7 +26,8 @@
                     {{-- name --}}
                     <div class="form-group">
                         <label>@lang('genres.name')<span class="text-danger">*</span></label>
-                        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required autofocus>
+                        <input type="text" name="title" class="form-control" value="{{ old('name') }}" required
+                            autofocus>
                     </div>
 
 

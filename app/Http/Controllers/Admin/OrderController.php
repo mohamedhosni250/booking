@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
+
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
-
-use Yajra\DataTables\DataTables;
-
-class GenreController extends Controller
+class OrderController extends Controller
 {
     public function __construct()
     {
@@ -21,30 +21,41 @@ class GenreController extends Controller
 
     public function index()
     {
-        return view('admin.genres.index');
+        return view('admin.orders.index');
     } // end of index
-
+    public function edit(Order $order)
+    {
+        return view('admin.orders.edit', compact('order'));
+    }
     public function data()
     {
-        $genres = Genre::withCount(['tours']);
+        $orders = Order::with(['user'])->get();
 
-        return DataTables::of($genres)
-            ->addColumn('record_select', 'admin.genres.data_table.record_select')
-            ->addColumn('related_movies', 'admin.genres.data_table.related_movies')
-            ->editColumn('created_at', function (Genre $genre) {
-                return $genre->created_at->format('Y-m-d');
+        return DataTables::of($orders)
+            ->addColumn('record_select', 'admin.orders.data_table.record_select')
+
+            ->editColumn('created_at', function (Order $order) {
+                return $order->created_at->format('Y-m-d');
             })
-            ->addColumn('actions', 'admin.genres.data_table.actions')
+            ->addColumn('actions', 'admin.orders.data_table.actions')
             ->rawColumns(['record_select', 'related_movies', 'actions'])
             ->toJson();
     } // end of data
+
+    public function show(Order $order)
+
+    {
+
+
+        return view('admin.orders.show', compact('order'));
+    } // end of show
     public function store(Request $request)
     {
-        Genre::create(['title' => $request->title]);
+        Order::create(['name' => $request->name]);
         session()->flash('success', __('site.created_successfully'));
-        return redirect()->route('admin.genres.index');
+        return redirect()->route('admin.orders.index');
     }
-    public function destroy(Genre $genre)
+    public function destroy(Order $genre)
     {
         $this->delete($genre);
         session()->flash('success', __('site.deleted_successfully'));
@@ -52,13 +63,14 @@ class GenreController extends Controller
     } // end of destroy
     public function create()
     {
-        return view('admin.genres.create');
+        $genres = Genre::all();
+        return view('admin.orders.create', compact('genres'));
     }
     public function bulkDelete()
     {
         foreach (json_decode(request()->record_ids) as $recordId) {
 
-            $genre = Genre::FindOrFail($recordId);
+            $genre = Order::FindOrFail($recordId);
             $this->delete($genre);
         } //end of for each
 
@@ -66,7 +78,7 @@ class GenreController extends Controller
         return response(__('site.deleted_successfully'));
     } // end of bulkDelete
 
-    private function delete(Genre $genre)
+    private function delete(Order $genre)
     {
         $genre->delete();
     } // end of delete

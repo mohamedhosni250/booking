@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
+
+use App\Models\Tour;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
-
-use Yajra\DataTables\DataTables;
-
-class GenreController extends Controller
+class TourController extends Controller
 {
     public function __construct()
     {
@@ -21,30 +21,40 @@ class GenreController extends Controller
 
     public function index()
     {
-        return view('admin.genres.index');
+        return view('admin.tours.index');
     } // end of index
-
+    public function edit(Tour $tour)
+    {
+        return view('admin.tours.edit', compact('tour'));
+    }
     public function data()
     {
-        $genres = Genre::withCount(['tours']);
+        $tours = Tour::with(['genre'])->get();
 
-        return DataTables::of($genres)
-            ->addColumn('record_select', 'admin.genres.data_table.record_select')
-            ->addColumn('related_movies', 'admin.genres.data_table.related_movies')
-            ->editColumn('created_at', function (Genre $genre) {
-                return $genre->created_at->format('Y-m-d');
+        return DataTables::of($tours)
+            ->addColumn('record_select', 'admin.tours.data_table.record_select')
+            ->addColumn('genre', function (Tour $tour) {
+                return $tour->genre->title;
             })
-            ->addColumn('actions', 'admin.genres.data_table.actions')
+            ->editColumn('created_at', function (Tour $tour) {
+                return $tour->created_at->format('Y-m-d');
+            })
+            ->addColumn('actions', 'admin.tours.data_table.actions')
             ->rawColumns(['record_select', 'related_movies', 'actions'])
             ->toJson();
     } // end of data
+
+    public function show(Tour $tour)
+    {
+        return view('admin.tours.show', compact('tour'));
+    } // end of show
     public function store(Request $request)
     {
-        Genre::create(['title' => $request->title]);
+        Tour::create(['title' => $request->title, 'genre_id' => $request->genre_id]);
         session()->flash('success', __('site.created_successfully'));
-        return redirect()->route('admin.genres.index');
+        return redirect()->route('admin.tours.index');
     }
-    public function destroy(Genre $genre)
+    public function destroy(Tour $genre)
     {
         $this->delete($genre);
         session()->flash('success', __('site.deleted_successfully'));
@@ -52,13 +62,14 @@ class GenreController extends Controller
     } // end of destroy
     public function create()
     {
-        return view('admin.genres.create');
+        $genres = Genre::all();
+        return view('admin.tours.create', compact('genres'));
     }
     public function bulkDelete()
     {
         foreach (json_decode(request()->record_ids) as $recordId) {
 
-            $genre = Genre::FindOrFail($recordId);
+            $genre = Tour::FindOrFail($recordId);
             $this->delete($genre);
         } //end of for each
 
@@ -66,7 +77,7 @@ class GenreController extends Controller
         return response(__('site.deleted_successfully'));
     } // end of bulkDelete
 
-    private function delete(Genre $genre)
+    private function delete(Tour $genre)
     {
         $genre->delete();
     } // end of delete
