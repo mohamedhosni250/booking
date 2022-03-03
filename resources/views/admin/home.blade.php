@@ -43,7 +43,7 @@
                         <div class="card-body">
 
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="mb-0"><span class="fa fa-film"></span> @lang('movies.movies')</p>
+                                <p class="mb-0"><span class="fa fa-film"></span> @lang('tours.tours')</p>
                                 <a href="{{ route('admin.movies.index') }}">@lang('site.show_all')</a>
                             </div>
 
@@ -63,7 +63,7 @@
                         <div class="card-body">
 
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="mb-0"><span class="fa fa-address-book-o"></span> @lang('actors.actors')
+                                <p class="mb-0"><span class="fa fa-address-book-o"></span> @lang('tours.booking')
                                 </p>
                                 <a href="{{ route('admin.actors.index') }}">@lang('site.show_all')</a>
                             </div>

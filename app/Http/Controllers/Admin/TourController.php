@@ -50,13 +50,21 @@ class TourController extends Controller
     } // end of show
     public function store(Request $request)
     {
-        Tour::create(['title' => $request->title, 'genre_id' => $request->genre_id]);
+        Tour::create(
+            [
+                'title' => $request->title,
+                'genre_id' => $request->genre_id,
+                'adult_price' => $request->adult_price,
+                'child_price' => $request->child_price,
+                'description' => $request->description,
+            ]
+        );
         session()->flash('success', __('site.created_successfully'));
         return redirect()->route('admin.tours.index');
     }
-    public function destroy(Tour $genre)
+    public function destroy(Tour $tour)
     {
-        $this->delete($genre);
+        $this->delete($tour);
         session()->flash('success', __('site.deleted_successfully'));
         return response(__('site.deleted_successfully'));
     } // end of destroy

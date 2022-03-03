@@ -14,7 +14,9 @@ Route::prefix(LaravelLocalization::setLocale())
 
         Route::get('/home', 'HomeController@index')->name('home');
 
+        Route::get('tour/{id}', function ($id) {
+            return view('tour');
+        });
+
         Auth::routes();
-
-
     });

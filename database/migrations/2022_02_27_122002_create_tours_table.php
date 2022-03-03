@@ -19,8 +19,8 @@ class CreateToursTable extends Migration
             $table->string('title');
             $table->text('image')->nullable();
             $table->text('description')->nullable();
-            $table->integer('adult_price')->nullable();
-            $table->integer('child_price')->nullable();
+            $table->float('adult_price')->nullable();
+            $table->float('child_price')->nullable();
 
 
             $table->timestamps();

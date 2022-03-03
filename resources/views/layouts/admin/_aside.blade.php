@@ -49,6 +49,12 @@
                     href="{{ route('admin.tours.index') }}"><i class="app-menu__icon fa fa-list"></i> <span
                         class="app-menu__label">Tours</span></a></li>
         @endif
+           @if (auth()->user()->hasPermission('read_tours'))
+            <li><a class="app-menu__item {{ request()->is('*features*') ? 'active' : '' }}"
+                    href="{{ route('admin.features.index') }}"><i class="app-menu__icon fa fa-list"></i> <span
+                        class="app-menu__label">Tours Includes</span></a></li>
+        @endif
+
 
         {{-- movies --}}
         @if (auth()->user()->hasPermission('read_movies'))

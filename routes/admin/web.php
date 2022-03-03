@@ -37,7 +37,10 @@ Route::middleware([
             Route::get('/tours/data', 'TourController@data')->name('tours.data');
             Route::delete('/tours/bulk_delete', 'TourController@bulkDelete')->name('tours.bulk_delete');
             Route::resource('tours', 'TourController');
-
+              //features routes
+              Route::get('/features/data', 'FeatureController@data')->name('features.data');
+              Route::delete('/features/bulk_delete', 'FeatureController@bulkDelete')->name('features.bulk_delete');
+              Route::resource('features', 'FeatureController');
             //Order routes
             Route::get('/orders/data', 'OrderController@data')->name('orders.data');
             Route::delete('/orders/bulk_delete', 'OrderController@bulkDelete')->name('orders.bulk_delete');

@@ -17,4 +17,10 @@ class Tour extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+
+
+    public function features()
+    {
+        return $this->belongsToMany(Feature::class, 'feature_tour', 'tour_id', 'feature_id');    
+    }
 }
