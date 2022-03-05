@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tour;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix(LaravelLocalization::setLocale())
@@ -15,8 +16,9 @@ Route::prefix(LaravelLocalization::setLocale())
         Route::get('/home', 'HomeController@index')->name('home');
 
         Route::get('tour/{id}', function ($id) {
-            return view('tour');
-        });
+            $tour = Tour::findOrFail($id);
+            return view('tour', compact('tour'));
+        })->name('tours');
 
         Auth::routes();
     });

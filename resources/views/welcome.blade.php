@@ -23,9 +23,9 @@
                                 <input type="text" name="service" placeholder="Mobile Number" required="">
                             </div>
                             <!-- <div class="form-group input-date">
-                                                                                        <i class="far fa-angle-down"></i><input type="text" name="date"
-                                                                                            placeholder="Mobile Number" id="datepicker">
-                                                                                    </div> -->
+                                                                                            <i class="far fa-angle-down"></i><input type="text" name="date"
+                                                                                                placeholder="Mobile Number" id="datepicker">
+                                                                                        </div> -->
                             <div class="form-group">
                                 <div class="select-box">
                                     <select class="wide">
@@ -86,10 +86,10 @@
                                             <span><i class="fas fa-star"></i>8.0 Superb</span>
                                         </div>
                                         <h3>
-                                            <a href="tour-details.html">{{$tour->title}} </a>
+                                            <a href="tour-details.html">{{ $tour->title }} </a>
                                         </h3>
                                         <h4>
-                                             {{$tour->adult_price}}<span>/ Per Adult</span>     
+                                            {{ $tour->adult_price }}<span>/ Per Adult</span>
                                         </h4>
                                         <ul class="info clearfix">
                                             <li>
@@ -101,14 +101,15 @@
                                         </ul>
                                         <p>
                                         <ul class="list">
-                                          
-                                         @foreach ($tour->features as $feature)
-                                               <li><i style="color:#00a651;" class="far fa-check-circle"></i> {{$feature->name}}</li>
-                                         @endforeach
+
+                                            @foreach ($tour->features as $feature)
+                                                <li><i style="color:#00a651;" class="far fa-check-circle"></i>
+                                                    {{ $feature->name }}</li>
+                                            @endforeach
                                         </ul>
                                         </p>
                                         <div class="btn-box">
-                                            <a href="tour-details.html">Book Now </a>
+                                            <a href="{{ route('tours', $tour->id) }}">Book Now </a>
                                         </div>
                                     </div>
                                 </div>
@@ -293,7 +294,6 @@
         </section>
         <!-- feature-section end -->
 
-
         <!-- deals-section -->
         <section class="deals-section" style="background-image: url(front/assets/images/booster4.png);">
             <div class="auto-container">
@@ -320,6 +320,7 @@
             </div>
         </section>
         <!-- deals-section end -->
+
         <!-- place-section -->
         <section class="place-section sec-pad">
             <div class="anim-icon">
@@ -357,10 +358,10 @@
                                     <img src="front/assets/images/resource/place-1.jpg" alt="">
                                 </figure>
                                 <!-- <div class="text">
-                                                                                            <h3>
-                                                                                                <a href="destination-details.html">New York City</a>
-                                                                                            </h3>
-                                                                                        </div> -->
+                                                                                                <h3>
+                                                                                                    <a href="destination-details.html">New York City</a>
+                                                                                                </h3>
+                                                                                            </div> -->
                             </div>
                         </div>
                     </div>
@@ -371,10 +372,10 @@
                                     <img src="front/assets/images/resource/place-2.jpg" alt="">
                                 </figure>
                                 <!-- <div class="text">
-                                                                                            <h3>
-                                                                                                <a href="destination-details.html">Norway Lake</a>
-                                                                                            </h3>
-                                                                                        </div> -->
+                                                                                                <h3>
+                                                                                                    <a href="destination-details.html">Norway Lake</a>
+                                                                                                </h3>
+                                                                                            </div> -->
                             </div>
                         </div>
                     </div>
@@ -385,10 +386,10 @@
                                     <img src="front/assets/images/resource/place-3.jpg" alt="">
                                 </figure>
                                 <!-- <div class="text">
-                                                                                            <h3>
-                                                                                                <a href="destination-details.html">Affrican Park</a>
-                                                                                            </h3>
-                                                                                        </div> -->
+                                                                                                <h3>
+                                                                                                    <a href="destination-details.html">Affrican Park</a>
+                                                                                                </h3>
+                                                                                            </div> -->
                             </div>
                         </div>
                     </div>
@@ -399,10 +400,10 @@
                                     <img src="front/assets/images/resource/place-4.jpg" alt="">
                                 </figure>
                                 <!-- <div class="text">
-                                                                                            <h3>
-                                                                                                <a href="destination-details.html">Vietnam</a>
-                                                                                            </h3>
-                                                                                        </div> -->
+                                                                                                <h3>
+                                                                                                    <a href="destination-details.html">Vietnam</a>
+                                                                                                </h3>
+                                                                                            </div> -->
                             </div>
                         </div>
                     </div>
@@ -493,6 +494,7 @@
             </div>
         </section>
         <!-- funfact-section end -->
+
         <!-- testimonial-section -->
         <section class="testimonial-section sec-pad centred">
             <div class="auto-container">

@@ -8,10 +8,11 @@
                     <span><i class="fas fa-star"></i>8.0 Superb</span>
                 </div>
                 <h2>
-                    Moscow Red City Land
+                    {{ $tour->title }}
                 </h2>
                 <h3>
-                    $170.00 <span>/ Per person</span>
+                    {{ $tour->adult_price }} $ <span>/ For Adult</span>
+                    {{ $tour->child_price }} $ <span>/ For Child</span>
                 </h3>
             </div>
         </div>
